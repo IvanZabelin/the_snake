@@ -1,44 +1,31 @@
 import pygame
 from random import randint
 
-# Константы для размеров поля и сетки:
-SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
-GRID_SIZE = 20
+
+SCREEN_WIDTH: int = 640
+SCREEN_HEIGHT: int = 480
+GRID_SIZE: int = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
-# Направления движения:
 UP = (0, -1)
 DOWN = (0, 1)
 LEFT = (-1, 0)
 RIGHT = (1, 0)
 
-# Цвет фона - черный:
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
-
-# Цвет границы ячейки
 BORDER_COLOR = (93, 216, 228)
-
-# Цвет яблока
 APPLE_COLOR = (255, 0, 0)
-
-# Цвет змейки
 SNAKE_COLOR = (0, 255, 0)
-
-# Скорость движения змейки:
-SPEED = 20
+SPEED: int = 20
+INITIAL_LENGTH: int = 1
 
 # Настройка игрового окна:
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
-# Заголовок окна игрового поля:
 pygame.display.set_caption("Змейка")
-
-# Настройка времени:
 clock = pygame.time.Clock()
 
 
-# Тут опишите все классы игры.
 class GameObject:
     """
     Главный класс.
@@ -55,7 +42,9 @@ class GameObject:
 
     def draw(self):
         """Пример отрисовки по заданию."""
-        pass
+        raise NotImplementedError(
+            "Этот метод должен быть переопределен в подклассе."
+        )
 
 
 class Apple(GameObject):
@@ -84,7 +73,7 @@ class Snake(GameObject):
 
     def __init__(self):
         super().__init__((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), SNAKE_COLOR)
-        self.length = 1
+        self.length = INITIAL_LENGTH
         self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
         self.direction = RIGHT
         self.next_direction = None
@@ -92,11 +81,16 @@ class Snake(GameObject):
 
     def update_direction(self, new_direction):
         """Обновляет направление движения змейки."""
-        if (
-            (new_direction == UP and self.direction != DOWN)
-            or (new_direction == DOWN and self.direction != UP)
-            or (new_direction == LEFT and self.direction != RIGHT)
-            or (new_direction == RIGHT and self.direction != LEFT)
+        opposite_directions = {
+            UP: DOWN,
+            DOWN: UP,
+            LEFT: RIGHT,
+            RIGHT: LEFT
+        }
+
+        if any(
+            new_direction == dir and self.direction != opposite_directions[dir]
+            for dir in (UP, DOWN, LEFT, RIGHT)
         ):
             self.next_direction = new_direction
 
@@ -168,9 +162,7 @@ def handle_keys(game_object):
 
 def main():
     """Функция запуска игры."""
-    # Инициализация PyGame:
     pygame.init()
-    # Тут нужно создать экземпляры классов.
     apple = Apple()
     snake = Snake()
 
@@ -191,34 +183,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# Метод draw класса Apple
-# def draw(self):
-#     rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
-#     pygame.draw.rect(screen, self.body_color, rect)
-#     pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-
-# # Метод draw класса Snake
-# def draw(self):
-#     for position in self.positions[:-1]:
-#         rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
-#         pygame.draw.rect(screen, self.body_color, rect)
-#         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-
-#     # Отрисовка головы змейки
-#     head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
-#     pygame.draw.rect(screen, self.body_color, head_rect)
-#     pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
-
-#     # Затирание последнего сегмента
-#     if self.last:
-#         last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
-#         pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
-
-
-# Метод обновления направления после нажатия на кнопку
-# def update_direction(self):
-#     if self.next_direction:
-#         self.direction = self.next_direction
-#         self.next_direction = None
