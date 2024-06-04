@@ -5,18 +5,18 @@ from random import randint
 SCREEN_WIDTH: int = 640
 SCREEN_HEIGHT: int = 480
 GRID_SIZE: int = 20
-GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
-GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
+GRID_WIDTH: int = SCREEN_WIDTH // GRID_SIZE
+GRID_HEIGHT: int = SCREEN_HEIGHT // GRID_SIZE
 
-UP = (0, -1)
-DOWN = (0, 1)
-LEFT = (-1, 0)
-RIGHT = (1, 0)
+UP: tuple[int, int] = (0, -1)
+DOWN: tuple[int, int] = (0, 1)
+LEFT: tuple[int, int] = (-1, 0)
+RIGHT: tuple[int, int] = (1, 0)
 
-BOARD_BACKGROUND_COLOR = (0, 0, 0)
-BORDER_COLOR = (93, 216, 228)
-APPLE_COLOR = (255, 0, 0)
-SNAKE_COLOR = (0, 255, 0)
+BOARD_BACKGROUND_COLOR: tuple[int, int, int] = (0, 0, 0)
+BORDER_COLOR: tuple[int, int, int] = (93, 216, 228)
+APPLE_COLOR: tuple[int, int, int] = (255, 0, 0)
+SNAKE_COLOR: tuple[int, int, int] = (0, 255, 0)
 SPEED: int = 20
 INITIAL_LENGTH: int = 1
 
