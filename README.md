@@ -1,4 +1,4 @@
 # the_snake
 
-Игра змейка написана на framework #pygame
+Игра змейка написана на framework PYGAME
 
